@@ -1,0 +1,25 @@
+# Data & outputs
+data/
+logs/
+outputs/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Environment
+.venv/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Trained models
+models/*.pkl
+data/
+logs/
+outputs/

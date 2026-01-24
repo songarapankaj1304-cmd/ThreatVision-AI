@@ -1,0 +1,9 @@
+api:
+  port: 5000
+  host: 0.0.0.0
+data:
+  path: data/cicids_combined_data.csv
+models:
+  path: models/threatvision_rf_model.pkl
+  scaler_path: models/threatvision_scaler.pkl  # Add this
+  pca_path: models/threatvision_pca.pkl        # Add this
