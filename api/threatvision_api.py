@@ -21,12 +21,15 @@ config_path = os.path.join(base_dir, 'config', 'config.yml')
 with open(config_path, 'r') as config_file:
     config = yaml.safe_load(config_file)
 
+logs_dir = os.path.join(base_dir, 'logs')
+os.makedirs(logs_dir, exist_ok=True)
+
 # Load logging configuration from logging.yml
 logging_path = os.path.join(base_dir, 'config', 'logging.yml')
 with open(logging_path, 'r') as logging_file:
     log_config = yaml.safe_load(logging_file)
     # Update log file path to use absolute path
-    log_config['handlers']['file']['filename'] = os.path.join(base_dir, 'logs', 'threatvision.log')
+    log_config['handlers']['file']['filename'] = os.path.join(logs_dir, 'threatvision.log')
     logging.config.dictConfig(log_config)
 logger = logging.getLogger('main')
 
@@ -37,6 +40,15 @@ app = Flask(__name__)
 model_path = os.path.join(base_dir, config['models']['path'])
 scaler_path = os.path.join(base_dir, config['models']['scaler_path'])
 pca_path = os.path.join(base_dir, config['models']['pca_path'])
+
+missing_files = [path for path in [model_path, scaler_path, pca_path] if not os.path.exists(path)]
+if missing_files:
+    raise FileNotFoundError(
+        "Missing model artifacts: "
+        + ", ".join(missing_files)
+        + ". Run `python models/create_sample_models.py` or train the model first."
+    )
+
 model = joblib.load(model_path)
 scaler = joblib.load(scaler_path)
 pca = joblib.load(pca_path)
