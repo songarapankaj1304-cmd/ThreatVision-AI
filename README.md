@@ -85,7 +85,7 @@ ThreatVision_AI/
 
 ```bash
 git clone https://github.com/songarapankaj1304-cmd/ThreatVision-AI.git
-cd ThreatVision_AI
+cd ThreatVision-AI
 pip install -r requirements.txt
 ```
 
@@ -94,6 +94,9 @@ pip install -r requirements.txt
 ## 🚀 Run the API
 
 ```bash
+# one-time: create sample artifacts if models/*.pkl are missing
+python models/create_sample_models.py
+
 python api/threatvision_api.py
 ```
 
