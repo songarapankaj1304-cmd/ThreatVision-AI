@@ -1,5 +1,4 @@
 import numpy as np
-import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
@@ -28,10 +27,11 @@ X_pca = pca.fit_transform(X_scaled)
 model = RandomForestClassifier(n_estimators=10, random_state=42)
 model.fit(X_pca, y)
 
-# Save the models
-joblib.dump(scaler, 'threatvision_scaler.pkl')
-joblib.dump(pca, 'threatvision_pca.pkl')
-joblib.dump(model, 'threatvision_rf_model.pkl')
+# Save the models in the models directory
+output_dir = os.path.dirname(os.path.abspath(__file__))
+joblib.dump(scaler, os.path.join(output_dir, 'threatvision_scaler.pkl'))
+joblib.dump(pca, os.path.join(output_dir, 'threatvision_pca.pkl'))
+joblib.dump(model, os.path.join(output_dir, 'threatvision_rf_model.pkl'))
 
 print("Sample models created successfully!")
-print(f"Model files saved to: {os.path.abspath('.')}")
+print(f"Model files saved to: {output_dir}")
